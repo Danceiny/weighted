@@ -8,6 +8,8 @@ type smoothWeighted struct {
 	EffectiveWeight int
 }
 
+type CallbackFunc func(int)
+
 /*
 SW (Smooth Weighted) is a struct that contains weighted items and provides methods to select a weighted item.
 It is used for the smooth weighted round-robin balancing algorithm. This algorithm is implemented in Nginx:
@@ -74,7 +76,7 @@ func (w *SW) Next() interface{} {
 }
 
 // Next returns next selected server and callback func for update weight
-func (w *SW) NextWithCallback() (interface{}, func(newWeight int)) {
+func (w *SW) NextWithCallback() (interface{}, CallbackFunc) {
 	i := w.nextWeighted()
 	if i == nil {
 		return nil, nil
