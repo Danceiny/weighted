@@ -58,7 +58,7 @@ func (w *RRW) RemoveAll() {
 	w.cw = 0
 }
 
-//Reset resets all current weights.
+// Reset resets all current weights.
 func (w *RRW) Reset() {
 	w.i = -1
 	w.cw = 0
