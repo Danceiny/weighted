@@ -1,15 +1,16 @@
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![GoDoc](https://godoc.org/github.com/smallnest/weighted?status.png)](http://godoc.org/github.com/smallnest/weighted)  [![travis](https://travis-ci.org/smallnest/weighted.svg?branch=master)](https://travis-ci.org/smallnest/weighted) [![coveralls](https://coveralls.io/repos/smallnest/weighted/badge.svg?branch=master&service=github)](https://coveralls.io/github/smallnest/weighted?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/smallnest/weighted)](https://goreportcard.com/report/github.com/smallnest/weighted)
 
-**What's New: Support update weight dynamically**
+**What's New: Update weight dynamically, for exploring better servers at the client end**
 ```go
-	// positive: weight more, cost less
-	var doFuncPositive = func(input string) int {
-		index, _ := strconv.Atoi(input[len(input)-1:])
-		cost = 10 - index
-		// mock slow operations
-		time.Sleep(time.Duration(cost) * time.Microsecond)
-		return cost
-	}
+func ExampleSW_NextWithCallback() {
+    // positive: weight more, cost less
+    var doFuncPositive = func(input string) int {
+        index, _ := strconv.Atoi(input[len(input)-1:])
+        cost = 10 - index
+        // mock slow operations
+        time.Sleep(time.Duration(cost) * time.Microsecond)
+        return cost
+    }
 
     w := &SW{}
     w.Add("server5", 100)
@@ -22,6 +23,7 @@
         callback := doFuncNegative(s)
         f(1000 / callback) // update weight
     }
+}
 ```
 
 **rust version**: [weighted-rs](https://github.com/smallnest/weighted-rs)
